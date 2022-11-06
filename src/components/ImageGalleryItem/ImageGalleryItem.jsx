@@ -1,19 +1,26 @@
 import { Component } from 'react';
 import { ListItem, Image, LargeImage } from './ImageGalleryItem.styled';
 import { Modal } from 'components/Modal';
+import PropTypes from 'prop-types';
 
 export class ImageGalleryItem extends Component {
+  static propTypes = {
+    smallImg: PropTypes.string.isRequired,
+    largeImg: PropTypes.string.isRequired,
+    alt: PropTypes.string.isRequired,
+  };
+
   state = {
     isModalOpen: false,
   };
 
-  togleModalOnClick = event => {
+  toggleModalOnClick = event => {
     if (event.target === event.currentTarget) {
-      this.togleModal();
+      this.toggleModal();
     }
   };
 
-  togleModal = () => {
+  toggleModal = () => {
     this.setState(prevState => ({ isModalOpen: !prevState.isModalOpen }));
   };
 
@@ -22,9 +29,9 @@ export class ImageGalleryItem extends Component {
 
     return (
       <ListItem>
-        <Image src={smallImg} alt={alt} onClick={this.togleModalOnClick} />
+        <Image src={smallImg} alt={alt} onClick={this.toggleModalOnClick} />
         {this.state.isModalOpen && (
-          <Modal togleModal={this.togleModal}>
+          <Modal toggleModal={this.toggleModal}>
             <LargeImage src={largeImg} alt={alt} />
           </Modal>
         )}
